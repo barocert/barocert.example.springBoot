@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen"/>
+    <title>Barocert Kakao Service SpringBoot Example.</title>
+</head>
+<body>
+<div id="content">
+    <p class="heading1">Response</p>
+    <br/>
+    <fieldset class="fieldset1">
+        <legend th:text="${#request?.requestURL}"></legend>
+        <ul>
+            <li>ReceiptID (접수 아이디) : <span th:text="${result.receiptID}"></span></li>
+            <li>RequestID (요청 아이디) : <span th:text="${result.requestID}"></span></li>
+            <li>State (상태) : <span th:text="${result.state}"></span></li>
+            
+            <fieldset th:each="BulkSignedData : ${result.bulkSignedData}">
+            	<li>BulkSignedData (전자서명 데이터 전문) : <span th:text="${BulkSignedData}"></span></li>
+            </fieldset>
+            
+            <li>Ci (연계정보) : <span th:text="${result.ci}"></span></li>
+        </ul>
+    </fieldset>
+</div>
+</body>
+</html>
