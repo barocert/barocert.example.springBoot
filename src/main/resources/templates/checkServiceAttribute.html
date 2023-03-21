@@ -6,13 +6,15 @@
 </head>
 <body>
 <div id="content">
-    <p class="heading1">Exception Occurred</p>
+    <p class="heading1">Barocert Kakaocert Service SpringBoot Example.</p>
     <br/>
     <fieldset class="fieldset1">
-        <legend th:text="${#request?.requestURL}"></legend>
+        <legend>kakaocertService attribute</legend>
         <ul>
-            <li>Exception.code : <span th:text="${Exception.code}"></span></li>
-            <li>Exception.message : <span th:text="${Exception.message}"></span></li>
+            <li>linkID : <span th:text="${_linkID}"></span></li>
+            <li>secretKey : <span th:text="${_secretKey}"></span></li>
+            <li>IPRestrictOnOff : <span th:text="${isIPRestrictOnOff}"></span></li>
+            <li>useStaticIP : <span th:text="${useStaticIP}"></span></li>
         </ul>
     </fieldset>
 </div>

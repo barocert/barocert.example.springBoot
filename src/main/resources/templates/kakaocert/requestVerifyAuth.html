@@ -6,13 +6,13 @@
 </head>
 <body>
 <div id="content">
-    <p class="heading1">Exception Occurred</p>
+    <p class="heading1">Response</p>
     <br/>
     <fieldset class="fieldset1">
         <legend th:text="${#request?.requestURL}"></legend>
         <ul>
-            <li>Exception.code : <span th:text="${Exception.code}"></span></li>
-            <li>Exception.message : <span th:text="${Exception.message}"></span></li>
+            <li>receiptId (접수아이디) : <span th:text="${result.receiptId}"></span></li>
+            <li>signedData (전자서명 데이터 전문) : <span th:text="${result.signedData}"></span></li>
         </ul>
     </fieldset>
 </div>

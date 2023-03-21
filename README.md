@@ -7,8 +7,8 @@ requirements
  - jdk 1.8+
 
 reference
- - https://github.com/linkhub-sdk/barocert.springBoot
+ - https://github.com/barocert/barocert.springboot
 
 1. 전자서명
-1. 본인인증
-1. 출금동의
+2. 본인인증
+3. 출금동의
