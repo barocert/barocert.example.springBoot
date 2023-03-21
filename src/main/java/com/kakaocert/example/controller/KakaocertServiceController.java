@@ -27,7 +27,7 @@ import com.kakaocert.api.verifyauth.ResultVerifyAuth;
 public class KakaocertServiceController {
 
     @Autowired
-    private com.barocert.KakaocertService kakaocertService;
+    private KakaocertService kakaocertService;
 
     // 이용기관코드
     // 파트너가 등록한 이용기관의 코드, (파트너 사이트에서 확인가능)
