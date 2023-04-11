@@ -15,7 +15,7 @@
             <li>State (상태) : <span th:text="${result.state}"></span></li>
             
             <fieldset th:each="multiSignedData : ${result.multiSignedData}">
-            	<li>BulkSignedData (전자서명 데이터 전문) : <span th:text="${multiSignedData}"></span></li>
+            	<li>MultiSignedData (전자서명 데이터 전문) : <span th:text="${multiSignedData}"></span></li>
             </fieldset>
             
             <li>Ci (연계정보) : <span th:text="${result.ci}"></span></li>

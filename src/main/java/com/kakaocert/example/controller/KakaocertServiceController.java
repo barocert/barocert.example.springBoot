@@ -1,7 +1,5 @@
 package com.kakaocert.example.controller;
 
-import java.lang.reflect.Field;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -275,7 +273,7 @@ public class KakaocertServiceController {
     public String getMultiSignStatus(Model m) {
 
         // 전자서명 요청시 반환된 접수아이디
-        String receiptID = "02304050230300000040000000000006";
+        String receiptID = "02304110230300000040000000000022";
 
         try {
             ResponseMultiSignStatus result = kakaocertService.getMultiSignStatus(ClientCode, receiptID);
@@ -297,7 +295,7 @@ public class KakaocertServiceController {
     public String verifyMultiSign(Model m) {
 
         // 전자서명 요청시 반환된 접수아이디
-        String receiptID = "02304050230300000040000000000006";
+        String receiptID = "02304110230300000040000000000022";
 
         try {
             ResponseVerifyMultiSign result = kakaocertService.verifyMultiSign(ClientCode, receiptID);
