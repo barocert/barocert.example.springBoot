@@ -39,26 +39,6 @@ public class KakaocertServiceController {
     // 파트너가 등록한 이용기관의 코드, (파트너 사이트에서 확인가능)
     @Value("${kakaocert.clientCode}")
     private String ClientCode;
-
-    @RequestMapping(value = "checkServiceAttribute")
-    public String checkKakaoServiceAttribute(Model m) {
-        kakaoCertModelAttribute(m);
-        return "checkServiceAttribute";
-    }
-
-    private void kakaoCertModelAttribute(Model m) {
-        Field[] fields = kakaocertService.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            try {
-                m.addAttribute(field.getName(), field.get(kakaocertService));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     
     /*
      * 카카오톡 사용자에게 본인인증 전자서명을 요청합니다.
