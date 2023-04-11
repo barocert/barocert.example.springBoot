@@ -1,4 +1,4 @@
-Barocert.example.springBoot
+Barocert.ExamplespringBoot
 ==========================
 
 Barocert SDK Example for Java springBoot version.

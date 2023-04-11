@@ -1,7 +1,7 @@
 # Barocert Java SDK SpringBoot Example
 #
 # - SpringBoot SDK 연동환경 설정방법 안내 : 
-# - 업데이트 일자 : 2023-03-21
+# - 업데이트 일자 : 2023-04-11
 # - 연동 기술지원 연락처 : 1600-9854
 # - 연동 기술지원 이메일 : code@linkhubcorp.com
 #
@@ -12,11 +12,11 @@
 
 kakaocert:
   #링크허브에서 발급받은 파트너 링크아이디.
-  linkId: BKAKAO
+  linkId: LINKHUB_BC
   #링크허브에서 발급받는 비밀키.
-  secretKey: egkxYN99ZObjLa3c0nr9/riG+a0VDkZu87LSGR8c37U=
+  secretKey: npCAl0sHPpJqlvMbrcBmNagrxkQ74w9Sl0A+M++kMCE=
   #이용기관코드, 파트너가 등록한 이용기관의 코드, (파트너 사이트에서 확인가능)
-  clientCode: '023020000003'
+  clientCode: '023030000004'
   #인증토큰 발급 IP 제한 On/Off, ture-제한기능 사용(기본값-권장),  false-제한기능 미사용
   isIpRestrictOnOff: true
   #카카오써트 API 서비스 고정 IP 사용여부, true-사용, false-미사용, 기본값(false)

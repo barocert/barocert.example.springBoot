@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen"/>
-    <title>Barocert Kakaocert Service SpringBoot Example.</title>
+    <title>Barocert Kakaocert Service SpringBoot Example</title>
 </head>
 <body>
 <div id="content">
@@ -11,8 +11,10 @@
     <fieldset class="fieldset1">
         <legend th:text="${#request?.requestURL}"></legend>
         <ul>
-            <li>접수아이디 (receiptId) : <span th:text="${result.receiptId}"></span></li>
-            <li>앱스킴 (scheme)[AppToApp 앱스킴 호출용] : <span th:text="${result.scheme}"></span></li>
+            <li>ReceiptID (접수 아이디) : <span th:text="${result.receiptID}"></span></li>
+            <li>State (상태) : <span th:text="${result.state}"></span></li>
+            <li>SignedData (전자서명 데이터 전문) : <span th:text="${result.signedData}"></span></li>
+            <li>Ci (연계정보) : <span th:text="${result.ci}"></span></li>
         </ul>
     </fieldset>
 </div>

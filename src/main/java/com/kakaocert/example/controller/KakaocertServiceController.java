@@ -1,7 +1,6 @@
 package com.kakaocert.example.controller;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,18 +9,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.kakaocert.api.BarocertException;
-import com.kakaocert.api.KakaocertService;
-import com.kakaocert.api.ResponseCMS;
-import com.kakaocert.api.ResponseESign;
-import com.kakaocert.api.VerifyResult;
-import com.kakaocert.api.cms.RequestCMS;
-import com.kakaocert.api.cms.ResultCMS;
-import com.kakaocert.api.esign.RequestESign;
-import com.kakaocert.api.esign.ResultESign;
-import com.kakaocert.api.esign.Tokens;
-import com.kakaocert.api.verifyauth.RequestVerifyAuth;
-import com.kakaocert.api.verifyauth.ResultVerifyAuth;
+import com.barocert.BarocertException;
+import com.barocert.kakaocert.KakaocertService;
+import com.barocert.kakaocert.cms.RequestCMS;
+import com.barocert.kakaocert.cms.ResponseCMS;
+import com.barocert.kakaocert.cms.ResponseCMSStatus;
+import com.barocert.kakaocert.cms.ResponseVerifyCMS;
+import com.barocert.kakaocert.identity.RequestIdentity;
+import com.barocert.kakaocert.identity.ResponseIdentity;
+import com.barocert.kakaocert.identity.ResponseIdentityStatus;
+import com.barocert.kakaocert.identity.ResponseVerifyIdentity;
+import com.barocert.kakaocert.sign.MultiSignTokens;
+import com.barocert.kakaocert.sign.RequestMultiSign;
+import com.barocert.kakaocert.sign.RequestSign;
+import com.barocert.kakaocert.sign.ResponseMultiSign;
+import com.barocert.kakaocert.sign.ResponseMultiSignStatus;
+import com.barocert.kakaocert.sign.ResponseSign;
+import com.barocert.kakaocert.sign.ResponseSignStatus;
+import com.barocert.kakaocert.sign.ResponseVerifyMultiSign;
+import com.barocert.kakaocert.sign.ResponseVerifySign;
 
 @Controller
 public class KakaocertServiceController {
@@ -53,355 +59,369 @@ public class KakaocertServiceController {
             }
         }
     }
-
-    /*
-     * 카카오톡 사용자에게 전자서명을 요청합니다.(단건)
-     * - https://requestESign
-     */
-    @RequestMapping(value = "requestESign", method = RequestMethod.GET)
-    public String requestESign(Model m) {
-
-        // 전자서명 요청 정보 Object
-    	RequestESign request = new RequestESign();
-
-        // AppToApp 인증요청 여부
-        // true - AppToApp 인증방식, false - Talk Message 인증방식
-        boolean isAppUseYN = false;
-
-        // 수신자 정보(휴대폰번호, 성명, 생년월일)와 Ci 값 중 택일
-        request.setReceiverHP(kakaocertService.AES256Encrypt("01087674117"));
-        request.setReceiverName(kakaocertService.AES256Encrypt("이승환"));
-        request.setReceiverBirthday(kakaocertService.AES256Encrypt("19930112"));
-        // request.setCi(kakaocertService.AES256Encrypt(""));
-
-        request.setReqTitle("전자서명단건테스트");
-        request.setExpireIn(1000);
-        
-        request.setToken(kakaocertService.AES256Encrypt("전자서명단건테스트데이터"));
-        
-        request.setTokenType("TEXT"); // TEXT, HASH
-
-        // App to App 방식 이용시, 에러시 호출할 URL
-        // request.setReturnURL("https://kakao.barocert.com");
-
-        try {
-        	ResultESign result = kakaocertService.requestESign(ClientCode, request, isAppUseYN);
-
-            m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
-            return "exception";
-        }
-
-        return "kakaocert/resultESign";
-    }
     
-    /*
-     * 카카오톡 사용자에게 전자서명을 요청합니다.(다건)
-     * - https://bulkRequestESign
-     */
-    @RequestMapping(value = "bulkRequestESign", method = RequestMethod.GET)
-    public String bulkRequestESign(Model m) {
-
-        // 전자서명 요청 정보 Object
-    	BulkRequestESign request = new BulkRequestESign();
-
-        // AppToApp 인증요청 여부
-        // true - AppToApp 인증방식, false - Talk Message 인증방식
-        boolean isAppUseYN = false;
-
-        // 수신자 정보(휴대폰번호, 성명, 생년월일)와 Ci 값 중 택일
-        request.setReceiverHP(kakaocertService.AES256Encrypt("01087674117"));
-        request.setReceiverName(kakaocertService.AES256Encrypt("이승환"));
-        request.setReceiverBirthday(kakaocertService.AES256Encrypt("19930112"));
-        // request.setCi(kakaocertService.AES256Encrypt(""));
-
-        request.setReqTitle("전자서명다건테스트");
-        request.setExpireIn(1000);
-
-        request.setTokens(new ArrayList<Tokens>());
-
-        Tokens token = new Tokens();
-        token.setReqTitle("전자서명다건문서테스트1");
-        token.setToken(kakaocertService.AES256Encrypt("전자서명다건테스트데이터1"));
-        request.getTokens().add(token);
-
-        token = new Tokens();
-        token.setReqTitle("전자서명다건문서테스트2");
-        token.setToken(kakaocertService.AES256Encrypt("전자서명다건테스트데이터2"));
-        request.getTokens().add(token);
-
-        request.setTokenType("TEXT"); // TEXT, HASH
-
-        // App to App 방식 이용시, 에러시 호출할 URL
-        // request.setReturnURL("https://kakao.barocert.com");
-
-        try {
-        	ResultESign result = kakaocertService.bulkRequestESign(ClientCode, request, isAppUseYN);
-
-            m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
-            return "exception";
-        }
-
-        return "kakaocert/bulkResultESign";
-    }
-
-    /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다. (단건)
-     * - https://getESignResult
-     */
-    @RequestMapping(value = "getESignState", method = RequestMethod.GET)
-    public String getESignResult(Model m) {
-
-        // 전자서명 요청시 반환된 접수아이디
-        String receiptID = "0230309201738000000000000000000000000001";
-
-        try {
-        	ResultESignState result = kakaocertService.getESignState(ClientCode, receiptID);
-            
-            m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
-            return "exception";
-        }
-        
-        return "kakaocert/getESignState";
-    }
-    
-    /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다. (다건)
-     * - https://getBulkESignState
-     */
-    @RequestMapping(value = "getBulkESignState", method = RequestMethod.GET)
-    public String getBulkESignState(Model m) {
-
-        // 전자서명 요청시 반환된 접수아이디
-        String receiptID = "0230309201738000000000000000000000000001";
-
-        try {
-        	BulkResultESignState result = kakaocertService.getBulkESignState(ClientCode, receiptID);
-            
-            m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
-            return "exception";
-        }
-        
-        return "kakaocert/getBulkESignState";
-    }
-
-    /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명을 검증합니다. (단건)
-     * - https://verfiyESign
-     */
-    @RequestMapping(value = "verifyESign", method = RequestMethod.GET)
-    public String verfiyESign(Model m) {
-
-    	// 전자서명 요청시 반환된 접수아이디
-        String receiptID = "0230310143306000000000000000000000000001";
-
-        try {
-        	VerifyEsignResult result = kakaocertService.verifyESign(ClientCode, receiptID);
-            
-            m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
-            return "exception";
-        }
-        
-        return "kakaocert/verifyESign";
-    }
-    
-    /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명을 검증합니다. (다건)
-     * - https://bulkVerfiyESign
-     */
-    @RequestMapping(value = "bulkVerifyESign", method = RequestMethod.GET)
-    public String bulkVerifyESign(Model m) {
-
-    	// 전자서명 요청시 반환된 접수아이디
-        String receiptID = "0230310143306000000000000000000000000001";
-
-        try {
-        	BulkVerifyResult result = kakaocertService.bulkVerifyESign(ClientCode, receiptID);
-            
-            m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
-            return "exception";
-        }
-        
-        return "kakaocert/bulkVerifyESign";
-    }
-
     /*
      * 카카오톡 사용자에게 본인인증 전자서명을 요청합니다.
-     * - https://requestVerifyAuth
      */
-    @RequestMapping(value = "requestVerifyAuth", method = RequestMethod.GET)
-    public String requestVerifyAuth(Model m) {
+    @RequestMapping(value = "kakaocert/requestIdentity", method = RequestMethod.GET)
+    public String requestIdentity(Model m) throws BarocertException {
 
-        // 본인인증 요청 정보 Object
-        RequestVerifyAuth request = new RequestVerifyAuth();
-		
-		// 수신자 정보(휴대폰번호, 성명, 생년월일)와 Ci 값 중 택일
-		request.setReceiverHP(kakaocertService.AES256Encrypt("01087674117"));
-		request.setReceiverName(kakaocertService.AES256Encrypt("이승환"));
-		request.setReceiverBirthday(kakaocertService.AES256Encrypt("19930112"));
-		// request.setCi(kakaocertService.AES256Encrypt(""));
-		
-		request.setReqTitle("인증요청 메시지 제목란");
-		request.setExpireIn(1000);
-		
-		request.setToken(kakaocertService.AES256Encrypt("본인인증요청토큰"));
-		
-		// App to App 방식 이용시, 에러시 호출할 URL
-		// request.setReturnURL("https://kakao.barocert.com");
+        // 본인인증 요청 정보 객체
+        RequestIdentity identityRequest = new RequestIdentity();
+
+        // 수신자 정보
+        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        identityRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        identityRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
+        identityRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // identityRequest.setCi(kakaocertService.encrypt(""));
+
+        // 인증요청 메시지 제목 - 최대 40자
+        identityRequest.setReqTitle("인증요청 메시지 제목란");
+        // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
+        identityRequest.setExpireIn(1000);
+        // 서명 원문 - 최대 2,800자 까지 입력가능
+        identityRequest.setToken(kakaocertService.encrypt("본인인증요청토큰"));
+
+        // AppToApp 인증요청 여부
+        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        identityRequest.setAppUseYN(false);
+
+        // App to App 방식 이용시, 호출할 URL
+        // IdentityRequest.setReturnURL("https://www.kakaocert.com");
 
         try {
-        	ReqVerifyAuthResult result = kakaocertService.requestVerifyAuth(ClientCode, request);
-
-            m.addAttribute("Result", result);
+            ResponseIdentity result = kakaocertService.requestIdentity(ClientCode, identityRequest);
+            m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
             return "exception";
         }
 
-        return "kakaocert/requestVerifyAuth";
+        return "kakaocert/requestIdentity";
     }
 
     /*
      * 본인인증 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다.
-     * - https://getVerifyAuthState
      */
-    @RequestMapping(value = "getVerifyAuthState", method = RequestMethod.GET)
-    public String getVerifyAuthState(Model m) {
+    @RequestMapping(value = "kakaocert/getIdentityStatus", method = RequestMethod.GET)
+    public String getIdentityStatus(Model m) {
 
         // 본인인증 요청시 반환된 접수아이디
-        String receiptID = "023020000003";
+        String receiptID = "02304050230300000040000000000003";
 
         try {
-        	VerifyAuthStateResult result = kakaocertService.getVerifyAuthState(ClientCode, receiptID);
-            
+            ResponseIdentityStatus result = kakaocertService.getIdentityStatus(ClientCode, receiptID);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
             return "exception";
         }
-        
-        return "kakaocert/getVerifyAuthState";
+
+        return "kakaocert/getIdentityStatus";
     }
 
     /*
-     * 본인인증 요청시 반환된 접수아이디를 통해 본인인증 서명을 검증합니다.
-     * - https://verifyAuth
+     * 본인인증 요청시 반환된 접수아이디를 통해 본인인증 서명을 검증합니다. 
+     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
      */
-    @RequestMapping(value = "verifyAuth", method = RequestMethod.GET)
-    public String verifyAuth(Model m) {
+    @RequestMapping(value = "kakaocert/verifyIdentity", method = RequestMethod.GET)
+    public String verifyIdentity(Model m) {
 
         // 본인인증 요청시 반환된 접수아이디
-        String receiptID = "020040000001";
+        String receiptID = "02304050230300000040000000000003";
 
         try {
-        	VerifyAuthResult result = kakaocertService.verifyAuth(ClientCode, receiptID);
-        	
+            ResponseVerifyIdentity result = kakaocertService.verifyIdentity(ClientCode, receiptID);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
             return "exception";
         }
-        
-        return "kakaocert/verifyAuth";
+
+        return "kakaocert/verifyIdentity";
+    }
+
+    /*
+     * 카카오톡 사용자에게 전자서명을 요청합니다.(단건)
+     */
+    @RequestMapping(value = "kakaocert/requestSign", method = RequestMethod.GET)
+    public String requestSign(Model m) throws BarocertException {
+
+        // 전자서명 요청 정보 객체
+        RequestSign eSignRequest = new RequestSign();
+
+        // 수신자 정보
+        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        eSignRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        eSignRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
+        eSignRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // eSignRequest.setCi(kakaocertService.encrypt(""));
+
+        // 인증요청 메시지 제목 - 최대 40자
+        eSignRequest.setReqTitle("전자서명단건테스트");
+        // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
+        eSignRequest.setExpireIn(1000);
+        // 서명 원문 - 원문 2,800자 까지 입력가능
+        eSignRequest.setToken(kakaocertService.encrypt("전자서명단건테스트데이터"));
+        // 서명 원문 유형
+        // TEXT - 일반 텍스트, HASH - HASH 데이터
+        eSignRequest.setTokenType("TEXT");
+
+        // AppToApp 인증요청 여부
+        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        eSignRequest.setAppUseYN(false);
+
+        // App to App 방식 이용시, 호출할 URL
+        // eSignRequest.setReturnURL("https://www.kakaocert.com");
+
+        try {
+            ResponseSign result = kakaocertService.requestSign(ClientCode, eSignRequest);
+            m.addAttribute("result", result);
+        } catch (BarocertException ke) {
+            m.addAttribute("Exception", ke);
+            return "exception";
+        }
+
+        return "kakaocert/requestSign";
+    }
+
+    /*
+     * 전자서명 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다. (단건)
+     */
+    @RequestMapping(value = "kakaocert/getSignStatus", method = RequestMethod.GET)
+    public String getSignStatus(Model m) {
+
+        // 전자서명 요청시 반환된 접수아이디
+        String receiptID = "02304050230300000040000000000007";
+
+        try {
+            ResponseSignStatus result = kakaocertService.getSignStatus(ClientCode, receiptID);
+            m.addAttribute("result", result);
+        } catch (BarocertException ke) {
+            m.addAttribute("Exception", ke);
+            return "exception";
+        }
+
+        return "kakaocert/getSignStatus";
+    }
+
+    /*
+     * 전자서명 요청시 반환된 접수아이디를 통해 서명을 검증합니다. (단건)
+     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     */
+    @RequestMapping(value = "kakaocert/verifySign", method = RequestMethod.GET)
+    public String verfiySign(Model m) {
+
+        // 전자서명 요청시 반환된 접수아이디
+        String receiptID = "02304050230300000040000000000007";
+
+        try {
+            ResponseVerifySign result = kakaocertService.verifySign(ClientCode, receiptID);
+            m.addAttribute("result", result);
+
+        } catch (BarocertException ke) {
+            m.addAttribute("Exception", ke);
+            return "exception";
+        }
+
+        return "kakaocert/verifySign";
+    }
+
+    /*
+     * 카카오톡 사용자에게 전자서명을 요청합니다.(복수)
+     */
+    @RequestMapping(value = "kakaocert/requestMultiSign", method = RequestMethod.GET)
+    public String requestMultiSign(Model m) throws BarocertException {
+
+        // 전자서명 요청 정보 객체
+        RequestMultiSign multiSignRequest = new RequestMultiSign();
+
+        // 수신자 정보
+        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        multiSignRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        multiSignRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
+        multiSignRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // multiSignRequest.setCi(kakaocertService.encrypt(""));
+
+        // 인증요청 메시지 제목 - 최대 40자
+        multiSignRequest.setReqTitle("전자서명복수테스트");
+        // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
+        multiSignRequest.setExpireIn(1000);
+
+        // 개별문서 등록 - 최대 20 건
+        // 개별 요청 정보 객체
+        MultiSignTokens token = new MultiSignTokens();
+        // 인증요청 메시지 제목 - 최대 40자
+        token.setReqTitle("전자서명복수문서테스트1");
+        // 서명 원문 - 원문 2,800자 까지 입력가능
+        token.setToken(kakaocertService.encrypt("전자서명복수테스트데이터1"));
+        multiSignRequest.addToken(token);
+
+        // 개별 요청 정보 객체
+        MultiSignTokens token2 = new MultiSignTokens();
+        // 인증요청 메시지 제목 - 최대 40자
+        token2.setReqTitle("전자서명복수문서테스트2");
+        // 서명 원문 - 원문 2,800자 까지 입력가능
+        token2.setToken(kakaocertService.encrypt("전자서명복수테스트데이터2"));
+        multiSignRequest.addToken(token2);
+
+        // 서명 원문 유형
+        // TEXT - 일반 텍스트, HASH - HASH 데이터
+        multiSignRequest.setTokenType("TEXT");
+
+        // AppToApp 인증요청 여부
+        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        multiSignRequest.setAppUseYN(false);
+
+        // App to App 방식 이용시, 에러시 호출할 URL
+        // request.setReturnURL("https://www.kakaocert.com");
+
+        try {
+            ResponseMultiSign result = kakaocertService.requestMultiSign(ClientCode, multiSignRequest);
+            m.addAttribute("result", result);
+        } catch (BarocertException ke) {
+            m.addAttribute("Exception", ke);
+            return "exception";
+        }
+
+        return "kakaocert/requestMultiSign";
+    }
+
+    /*
+     * 전자서명 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다. (복수)
+     */
+    @RequestMapping(value = "kakaocert/getMultiSignStatus", method = RequestMethod.GET)
+    public String getMultiSignStatus(Model m) {
+
+        // 전자서명 요청시 반환된 접수아이디
+        String receiptID = "02304050230300000040000000000006";
+
+        try {
+            ResponseMultiSignStatus result = kakaocertService.getMultiSignStatus(ClientCode, receiptID);
+            m.addAttribute("result", result);
+
+        } catch (BarocertException ke) {
+            m.addAttribute("Exception", ke);
+            return "exception";
+        }
+
+        return "kakaocert/getMultiSignStatus";
+    }
+
+    /*
+     * 전자서명 요청시 반환된 접수아이디를 통해 서명을 검증합니다. (복수)
+     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     */
+    @RequestMapping(value = "kakaocert/verifyMultiSign", method = RequestMethod.GET)
+    public String verifyMultiSign(Model m) {
+
+        // 전자서명 요청시 반환된 접수아이디
+        String receiptID = "02304050230300000040000000000006";
+
+        try {
+            ResponseVerifyMultiSign result = kakaocertService.verifyMultiSign(ClientCode, receiptID);
+            m.addAttribute("result", result);
+        } catch (BarocertException ke) {
+            m.addAttribute("Exception", ke);
+            return "exception";
+        }
+
+        return "kakaocert/verifyMultiSign";
     }
 
     /*
      * 카카오톡 사용자에게 자동이체 출금동의 전자서명을 요청합니다.
-     * - https://requestCMS
      */
-    @RequestMapping(value = "requestCMS", method = RequestMethod.GET)
-    public String requestCMS(Model m) {
+    @RequestMapping(value = "kakaocert/requestCMS", method = RequestMethod.GET)
+    public String requestCMS(Model m) throws BarocertException {
 
-        // 자동이체 출금동의 요청 정보 Object
-        RequestCMS request = new RequestCMS();
+        // 출금동의 요청 정보 객체
+        RequestCMS cmsRequest = new RequestCMS();
+
+        // 수신자 정보
+        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        cmsRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        cmsRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
+        cmsRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // cmsRequest.setCi(kakaocertService.encrypt("");
+
+        // 인증요청 메시지 제목 - 최대 40자
+        cmsRequest.setReqTitle("인증요청 메시지 제공란");
+
+        // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
+        cmsRequest.setExpireIn(1000);
+
+        // 청구기관명 - 최대 100자
+        cmsRequest.setRequestCorp(kakaocertService.encrypt("청구기관명란"));
+        // 출금은행명 - 최대 100자
+        cmsRequest.setBankName(kakaocertService.encrypt("출금은행명란"));
+        // 출금계좌번호 - 최대 32자
+        cmsRequest.setBankAccountNum(kakaocertService.encrypt("9-4324-5117-58"));
+        // 출금계좌 예금주명 - 최대 100자
+        cmsRequest.setBankAccountName(kakaocertService.encrypt("예금주명 입력란"));
+        // 출금계좌 예금주 생년월일 - 8자
+        cmsRequest.setBankAccountBirthday(kakaocertService.encrypt("19930112"));
+        // 출금유형
+        // CMS - 출금동의용, FIRM - 펌뱅킹, GIRO - 지로용
+        cmsRequest.setBankServiceType(kakaocertService.encrypt("CMS")); // CMS, FIRM, GIRO
 
         // AppToApp 인증요청 여부
         // true - AppToApp 인증방식, false - Talk Message 인증방식
-        boolean isAppUseYN = false;
-		
-		// 수신자 정보(휴대폰번호, 성명, 생년월일)와 Ci 값 중 택일
-		request.setReceiverHP(kakaocertService.AES256Encrypt("이승환"));
-		request.setReceiverName(kakaocertService.AES256Encrypt("01087674117"));
-		request.setReceiverBirthday(kakaocertService.AES256Encrypt("19930112"));
-		// request.setCi(kakaocertService.AES256Encrypt(""));
-		
-		request.setReqTitle("인증요청 메시지 제공란");
-		request.setExpireIn(1000);
-		
-		request.setRequestCorp(kakaocertService.AES256Encrypt("청구 기관명란"));
-		request.setBankName(kakaocertService.AES256Encrypt("출금은행명란"));
-		request.setBankAccountNum(kakaocertService.AES256Encrypt("9-4324-5117-58"));
-		request.setBankAccountName(kakaocertService.AES256Encrypt("예금주명 입력란"));
-		request.setBankAccountBirthday(kakaocertService.AES256Encrypt("19930112"));
-		request.setBankServiceType(kakaocertService.AES256Encrypt("CMS")); // CMS, FIRM, GIRO
-		
-		// App to App 방식 이용시, 에러시 호출할 URL
-		// request.setReturnURL("https://kakao.barocert.com");
+        cmsRequest.setAppUseYN(false);
+
+        // App to App 방식 이용시, 에러시 호출할 URL
+        // request.setReturnURL("https://www.kakaocert.com");
 
         try {
-        	ResultCMS result = kakaocertService.requestCMS(ClientCode, request, isAppUseYN);
-
+            ResponseCMS result = kakaocertService.requestCMS(ClientCode, cmsRequest);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
             return "exception";
         }
 
-        return "kakaocert/resultCMS";
+        return "kakaocert/requestCMS";
     }
 
     /*
      * 자동이체 출금동의 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다.
-     * - https://getCMSState
      */
-    @RequestMapping(value = "getCMSState", method = RequestMethod.GET)
-    public String getCMSState(Model m) {
+    @RequestMapping(value = "kakaocert/getCMSStatus", method = RequestMethod.GET)
+    public String getCMSStatus(Model m) {
 
         // 출금동의 요청시 반환된 접수아이디
-        String receiptID = "0230309201738000000000000000000000000001";
+        String receiptID = "02304050230300000040000000000008";
 
         try {
-        	ResultCMSState result = kakaocertService.getCMSState(ClientCode, receiptID);
-            
+            ResponseCMSStatus result = kakaocertService.getCMSStatus(ClientCode, receiptID);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
             return "exception";
         }
-        
-        return "kakaocert/getCMSState";
+
+        return "kakaocert/getCMSStatus";
     }
 
     /*
      * 자동이체 출금동의 요청시 반환된 접수아이디를 통해 서명을 검증합니다.
-     * - https://verifyCMS
+     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
      */
-    @RequestMapping(value = "verifyCMS", method = RequestMethod.GET)
+    @RequestMapping(value = "kakaocert/verifyCMS", method = RequestMethod.GET)
     public String verifyCMS(Model m) {
 
         // 출금동의 요청시 반환된 접수아이디
-        String receiptID = "0230309201738000000000000000000000000001";
+        String receiptID = "02304050230300000040000000000008";
 
         try {
-        	VerifyCMSResult result = kakaocertService.verifyCMS(ClientCode, receiptID);
-            
+            ResponseVerifyCMS result = kakaocertService.verifyCMS(ClientCode, receiptID);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
             return "exception";
         }
-        
+
         return "kakaocert/verifyCMS";
     }
 
