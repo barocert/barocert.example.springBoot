@@ -252,7 +252,7 @@ public class KakaocertServiceController {
         // true - AppToApp 인증방식, false - Talk Message 인증방식
         multiSign.setAppUseYN(false);
 
-        // App to App 방식 이용시, 에러시 호출할 URL
+        // App to App 방식 이용시, 호출할 URL
         // multiSign.setReturnURL("https://www.kakaocert.com");
 
         try {
@@ -348,7 +348,7 @@ public class KakaocertServiceController {
         // true - AppToApp 인증방식, false - Talk Message 인증방식
         cms.setAppUseYN(false);
 
-        // App to App 방식 이용시, 에러시 호출할 URL
+        // App to App 방식 이용시, 호출할 URL
         // cms.setReturnURL("https://www.kakaocert.com");
 
         try {
