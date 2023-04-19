@@ -45,31 +45,31 @@ public class KakaocertServiceController {
     public String requestIdentity(Model m) throws BarocertException {
 
         // 본인인증 요청 정보 객체
-        Identity identityRequest = new Identity();
+        Identity identity = new Identity();
 
         // 수신자 정보
         // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
-        identityRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
-        identityRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
-        identityRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
-        // identityRequest.setCi(kakaocertService.encrypt(""));
+        identity.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        identity.setReceiverName(kakaocertService.encrypt("최상혁"));
+        identity.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // identity.setCi(kakaocertService.encrypt(""));
 
         // 인증요청 메시지 제목 - 최대 40자
-        identityRequest.setReqTitle("인증요청 메시지 제목란");
+        identity.setReqTitle("인증요청 메시지 제목란");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
-        identityRequest.setExpireIn(1000);
+        identity.setExpireIn(1000);
         // 서명 원문 - 최대 2,800자 까지 입력가능
-        identityRequest.setToken(kakaocertService.encrypt("본인인증요청토큰"));
+        identity.setToken(kakaocertService.encrypt("본인인증요청토큰"));
 
         // AppToApp 인증요청 여부
         // true - AppToApp 인증방식, false - Talk Message 인증방식
-        identityRequest.setAppUseYN(false);
+        identity.setAppUseYN(false);
 
         // App to App 방식 이용시, 호출할 URL
-        // IdentityRequest.setReturnURL("https://www.kakaocert.com");
+        // identity.setReturnURL("https://www.kakaocert.com");
 
         try {
-            IdentityReceipt result = kakaocertService.requestIdentity(ClientCode, identityRequest);
+            IdentityReceipt result = kakaocertService.requestIdentity(ClientCode, identity);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
@@ -127,34 +127,34 @@ public class KakaocertServiceController {
     public String requestSign(Model m) throws BarocertException {
 
         // 전자서명 요청 정보 객체
-        Sign eSignRequest = new Sign();
+        Sign sign = new Sign();
 
         // 수신자 정보
         // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
-        eSignRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
-        eSignRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
-        eSignRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
-        // eSignRequest.setCi(kakaocertService.encrypt(""));
+        sign.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        sign.setReceiverName(kakaocertService.encrypt("최상혁"));
+        sign.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // sign.setCi(kakaocertService.encrypt(""));
 
         // 인증요청 메시지 제목 - 최대 40자
-        eSignRequest.setReqTitle("전자서명단건테스트");
+        sign.setReqTitle("전자서명단건테스트");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
-        eSignRequest.setExpireIn(1000);
+        sign.setExpireIn(1000);
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        eSignRequest.setToken(kakaocertService.encrypt("전자서명단건테스트데이터"));
+        sign.setToken(kakaocertService.encrypt("전자서명단건테스트데이터"));
         // 서명 원문 유형
         // TEXT - 일반 텍스트, HASH - HASH 데이터
-        eSignRequest.setTokenType("TEXT");
+        sign.setTokenType("TEXT");
 
         // AppToApp 인증요청 여부
         // true - AppToApp 인증방식, false - Talk Message 인증방식
-        eSignRequest.setAppUseYN(false);
+        sign.setAppUseYN(false);
 
         // App to App 방식 이용시, 호출할 URL
-        // eSignRequest.setReturnURL("https://www.kakaocert.com");
+        // sign.setReturnURL("https://www.kakaocert.com");
 
         try {
-            SignReceipt result = kakaocertService.requestSign(ClientCode, eSignRequest);
+            SignReceipt result = kakaocertService.requestSign(ClientCode, sign);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
@@ -213,19 +213,19 @@ public class KakaocertServiceController {
     public String requestMultiSign(Model m) throws BarocertException {
 
         // 전자서명 요청 정보 객체
-        MultiSign multiSignRequest = new MultiSign();
+        MultiSign multiSign = new MultiSign();
 
         // 수신자 정보
         // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
-        multiSignRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
-        multiSignRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
-        multiSignRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
-        // multiSignRequest.setCi(kakaocertService.encrypt(""));
+        multiSign.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        multiSign.setReceiverName(kakaocertService.encrypt("최상혁"));
+        multiSign.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // multiSign.setCi(kakaocertService.encrypt(""));
 
         // 인증요청 메시지 제목 - 최대 40자
-        multiSignRequest.setReqTitle("전자서명복수테스트");
+        multiSign.setReqTitle("전자서명복수테스트");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
-        multiSignRequest.setExpireIn(1000);
+        multiSign.setExpireIn(1000);
 
         // 개별문서 등록 - 최대 20 건
         // 개별 요청 정보 객체
@@ -234,7 +234,7 @@ public class KakaocertServiceController {
         token.setReqTitle("전자서명복수문서테스트1");
         // 서명 원문 - 원문 2,800자 까지 입력가능
         token.setToken(kakaocertService.encrypt("전자서명복수테스트데이터1"));
-        multiSignRequest.addToken(token);
+        multiSign.addToken(token);
 
         // 개별 요청 정보 객체
         MultiSignTokens token2 = new MultiSignTokens();
@@ -242,21 +242,21 @@ public class KakaocertServiceController {
         token2.setReqTitle("전자서명복수문서테스트2");
         // 서명 원문 - 원문 2,800자 까지 입력가능
         token2.setToken(kakaocertService.encrypt("전자서명복수테스트데이터2"));
-        multiSignRequest.addToken(token2);
+        multiSign.addToken(token2);
 
         // 서명 원문 유형
         // TEXT - 일반 텍스트, HASH - HASH 데이터
-        multiSignRequest.setTokenType("TEXT");
+        multiSign.setTokenType("TEXT");
 
         // AppToApp 인증요청 여부
         // true - AppToApp 인증방식, false - Talk Message 인증방식
-        multiSignRequest.setAppUseYN(false);
+        multiSign.setAppUseYN(false);
 
         // App to App 방식 이용시, 에러시 호출할 URL
-        // request.setReturnURL("https://www.kakaocert.com");
+        // multiSign.setReturnURL("https://www.kakaocert.com");
 
         try {
-            MultiSignReceipt result = kakaocertService.requestMultiSign(ClientCode, multiSignRequest);
+            MultiSignReceipt result = kakaocertService.requestMultiSign(ClientCode, multiSign);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
@@ -315,44 +315,44 @@ public class KakaocertServiceController {
     public String requestCMS(Model m) throws BarocertException {
 
         // 출금동의 요청 정보 객체
-        CMS cmsRequest = new CMS();
+        CMS cms = new CMS();
 
         // 수신자 정보
         // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
-        cmsRequest.setReceiverHP(kakaocertService.encrypt("01054437896"));
-        cmsRequest.setReceiverName(kakaocertService.encrypt("최상혁"));
-        cmsRequest.setReceiverBirthday(kakaocertService.encrypt("19880301"));
-        // cmsRequest.setCi(kakaocertService.encrypt("");
+        cms.setReceiverHP(kakaocertService.encrypt("01054437896"));
+        cms.setReceiverName(kakaocertService.encrypt("최상혁"));
+        cms.setReceiverBirthday(kakaocertService.encrypt("19880301"));
+        // cms.setCi(kakaocertService.encrypt("");
 
         // 인증요청 메시지 제목 - 최대 40자
-        cmsRequest.setReqTitle("인증요청 메시지 제공란");
+        cms.setReqTitle("인증요청 메시지 제공란");
 
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
-        cmsRequest.setExpireIn(1000);
+        cms.setExpireIn(1000);
 
         // 청구기관명 - 최대 100자
-        cmsRequest.setRequestCorp(kakaocertService.encrypt("청구기관명란"));
+        cms.setRequestCorp(kakaocertService.encrypt("청구기관명란"));
         // 출금은행명 - 최대 100자
-        cmsRequest.setBankName(kakaocertService.encrypt("출금은행명란"));
+        cms.setBankName(kakaocertService.encrypt("출금은행명란"));
         // 출금계좌번호 - 최대 32자
-        cmsRequest.setBankAccountNum(kakaocertService.encrypt("9-4324-5117-58"));
+        cms.setBankAccountNum(kakaocertService.encrypt("9-4324-5117-58"));
         // 출금계좌 예금주명 - 최대 100자
-        cmsRequest.setBankAccountName(kakaocertService.encrypt("예금주명 입력란"));
+        cms.setBankAccountName(kakaocertService.encrypt("예금주명 입력란"));
         // 출금계좌 예금주 생년월일 - 8자
-        cmsRequest.setBankAccountBirthday(kakaocertService.encrypt("19930112"));
+        cms.setBankAccountBirthday(kakaocertService.encrypt("19930112"));
         // 출금유형
         // CMS - 출금동의용, FIRM - 펌뱅킹, GIRO - 지로용
-        cmsRequest.setBankServiceType(kakaocertService.encrypt("CMS")); // CMS, FIRM, GIRO
+        cms.setBankServiceType(kakaocertService.encrypt("CMS")); // CMS, FIRM, GIRO
 
         // AppToApp 인증요청 여부
         // true - AppToApp 인증방식, false - Talk Message 인증방식
-        cmsRequest.setAppUseYN(false);
+        cms.setAppUseYN(false);
 
         // App to App 방식 이용시, 에러시 호출할 URL
-        // request.setReturnURL("https://www.kakaocert.com");
+        // cms.setReturnURL("https://www.kakaocert.com");
 
         try {
-            CMSReceipt result = kakaocertService.requestCMS(ClientCode, cmsRequest);
+            CMSReceipt result = kakaocertService.requestCMS(ClientCode, cms);
             m.addAttribute("result", result);
         } catch (BarocertException ke) {
             m.addAttribute("Exception", ke);
