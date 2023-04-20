@@ -58,7 +58,7 @@ public class KakaocertServiceController {
         identity.setReqTitle("인증요청 메시지 제목란");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         identity.setExpireIn(1000);
-        // 서명 원문 - 최대 2,800자 까지 입력가능
+        // 서명 원문 - 최대 40자 까지 입력가능
         identity.setToken(kakaocertService.encrypt("본인인증요청토큰"));
 
         // AppToApp 인증요청 여부
