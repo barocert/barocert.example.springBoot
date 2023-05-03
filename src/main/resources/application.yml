@@ -12,9 +12,9 @@
 
 kakaocert:
   #링크허브에서 발급받은 파트너 링크아이디.
-  linkId: LINKHUB_BC
+  linkId: TESTER
   #링크허브에서 발급받는 비밀키.
-  secretKey: npCAl0sHPpJqlvMbrcBmNagrxkQ74w9Sl0A+M++kMCE=
+  secretKey: SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=
   #이용기관코드, 파트너가 등록한 이용기관의 코드, (파트너 사이트에서 확인가능)
   clientCode: '023030000004'
   #인증토큰 발급 IP 제한 On/Off, ture-제한기능 사용(기본값-권장),  false-제한기능 미사용
