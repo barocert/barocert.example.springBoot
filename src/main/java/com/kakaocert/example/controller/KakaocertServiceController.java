@@ -47,12 +47,13 @@ public class KakaocertServiceController {
         // 본인인증 요청 정보 객체
         Identity identity = new Identity();
 
-        // 수신자 정보
-        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        
+        // 수신자 휴대폰번호 - 11자 (하이픈 제외)
         identity.setReceiverHP(kakaocertService.encrypt("01012341234"));
+        // 수신자 성명 - 80자
         identity.setReceiverName(kakaocertService.encrypt("홍길동"));
+        // 수신자 생년월일 - 8자 (yyyyMMdd)
         identity.setReceiverBirthday(kakaocertService.encrypt("19700101"));
-        // identity.setCi(kakaocertService.encrypt(""));
 
         // 인증요청 메시지 제목 - 최대 40자
         identity.setReqTitle("인증요청 메시지 제목란");
@@ -129,12 +130,12 @@ public class KakaocertServiceController {
         // 전자서명 요청 정보 객체
         Sign sign = new Sign();
 
-        // 수신자 정보
-        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        // 수신자 휴대폰번호 - 11자 (하이픈 제외)
         sign.setReceiverHP(kakaocertService.encrypt("01012341234"));
+        // 수신자 성명 - 80자
         sign.setReceiverName(kakaocertService.encrypt("홍길동"));
+        // 수신자 생년월일 - 8자 (yyyyMMdd)
         sign.setReceiverBirthday(kakaocertService.encrypt("19700101"));
-        // sign.setCi(kakaocertService.encrypt(""));
 
         // 인증요청 메시지 제목 - 최대 40자
         sign.setReqTitle("전자서명단건테스트");
@@ -215,10 +216,12 @@ public class KakaocertServiceController {
         // 전자서명 요청 정보 객체
         MultiSign multiSign = new MultiSign();
 
-        // 수신자 정보
-        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        
+        // 수신자 휴대폰번호 - 11자 (하이픈 제외)
         multiSign.setReceiverHP(kakaocertService.encrypt("01012341234"));
+        // 수신자 성명 - 80자
         multiSign.setReceiverName(kakaocertService.encrypt("홍길동"));
+        // 수신자 생년월일 - 8자 (yyyyMMdd)
         multiSign.setReceiverBirthday(kakaocertService.encrypt("19700101"));
         // multiSign.setCi(kakaocertService.encrypt(""));
 
@@ -317,12 +320,12 @@ public class KakaocertServiceController {
         // 출금동의 요청 정보 객체
         CMS cms = new CMS();
 
-        // 수신자 정보
-        // 휴대폰번호,성명,생년월일 또는 Ci(연계정보)값 중 택 일
+        // 수신자 휴대폰번호 - 11자 (하이픈 제외)
         cms.setReceiverHP(kakaocertService.encrypt("01012341234"));
+        // 수신자 성명 - 80자
         cms.setReceiverName(kakaocertService.encrypt("홍길동"));
+        // 수신자 생년월일 - 8자 (yyyyMMdd)
         cms.setReceiverBirthday(kakaocertService.encrypt("19700101"));
-        // cms.setCi(kakaocertService.encrypt("");
 
         // 인증요청 메시지 제목 - 최대 40자
         cms.setReqTitle("인증요청 메시지 제공란");
