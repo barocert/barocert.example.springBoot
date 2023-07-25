@@ -9,6 +9,15 @@ requirements
 reference
  - https://github.com/barocert/barocert.springboot
 
-1. 전자서명
-2. 본인인증
-3. 출금동의
+KakaoCert
+1. 본인인증
+2. 전자서명(단건)
+3. 전자서명(복수)
+4. 출금동의 
+5. 간편로그인
+
+PassCert
+1. 본인인증
+2. 전자서명
+3. 출금동의 
+4. 간편로그인

@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen"/>
+    <title>Barocert Passcert Service SpringBoot Example</title>
+</head>
+<body>
+<div id="content">
+    <p class="heading1">Response</p>
+    <br/>
+    <fieldset class="fieldset1">
+        <legend th:text="${#request?.requestURL}"></legend>
+        <ul> 
+            <li>ReceiptID (접수아이디) : <span th:text="${result.receiptID}"></span></li>
+            <li>Scheme (앱스킴) : <span th:text="${result.scheme}"></span></li>
+            <li>MarketUrl (앱다운로드URL) : <span th:text="${result.marketUrl}"></span></li>
+        </ul>
+    </fieldset>
+</div>
+</body>
+</html>

@@ -1,12 +1,13 @@
 # Barocert Java SDK SpringBoot Example
 #
 # - SpringBoot SDK 연동환경 설정방법 안내 : 
-# - 업데이트 일자 : 2023-04-11
+# - 업데이트 일자 : 2023-07-21
 # - 연동 기술지원 연락처 : 1600-9854
 # - 연동 기술지원 이메일 : code@linkhubcorp.com
 #
 # <테스트 연동개발 준비사항>
-# 1) 15번 17번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
+# 1) 카카오써트는 16, 18번 라인에 패스써트는 29, 31번 라인에 
+#    선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
 #    연동 신청시 메일로 발급받은 인증정보를 참조하여 변경합니다.
 #
 
@@ -15,15 +16,30 @@ kakaocert:
   linkId: TESTER
   #링크허브에서 발급받는 비밀키.
   secretKey: SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=
-  #이용기관코드, 파트너가 등록한 이용기관의 코드, (파트너 사이트에서 확인가능)
-  clientCode: '023030000004'
-  #인증토큰 발급 IP 제한 On/Off, ture-제한기능 사용(기본값-권장),  false-제한기능 미사용
+  #이용기관코드, 파트너가 등록한 이용기관의 코드 (파트너 사이트에서 확인가능)
+  clientCode: '023040000001'
+  #인증토큰 발급 IP 제한 On/Off, True-사용, False-미사용, 기본값(True)
   isIpRestrictOnOff: true
-  #카카오써트 API 서비스 고정 IP 사용여부, true-사용, false-미사용, 기본값(false)
+  #카카오써트 API 서비스 고정 IP 사용여부, True-사용, False-미사용, 기본값(False)
   useStaticIp: false
-  #로컬시스템 시간 사용여부 true-사용, false-미사용, 기본값(true)
+  #로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(True)
   useLocalTimeYN: true
 
+passcert:
+  #링크허브에서 발급받은 파트너 링크아이디.
+  linkId: TESTER
+  #링크허브에서 발급받는 비밀키.
+  secretKey: SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=
+  #이용기관코드, 파트너가 등록한 이용기관의 코드 (파트너 사이트에서 확인가능)
+  clientCode: '023040000001'
+  #인증토큰 발급 IP 제한 On/Off, True-사용, False-미사용, 기본값(True)
+  isIpRestrictOnOff: true
+  #카카오써트 API 서비스 고정 IP 사용여부, True-사용, False-미사용, 기본값(False)
+  useStaticIp: false
+  #로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(True)
+  useLocalTimeYN: true
+  
+  
 spring:
   thymeleaf:
     cache: false
