@@ -40,7 +40,7 @@ public class KakaocertServiceController {
     private String ClientCode;
     
     /*
-     * 카카오톡 사용자에게 본인인증 전자서명을 요청합니다.
+     * 카카오톡 이용자에게 본인인증을 요청합니다.
      * https://developers.barocert.com/reference/kakao/java/identity/api#RequestIdentity
      */
     @RequestMapping(value = "kakaocert/requestIdentity", method = RequestMethod.GET)
@@ -83,7 +83,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 본인인증 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다.
+     * 본인인증 요청 후 반환받은 접수아이디로 본인인증 진행 상태를 확인합니다.
      * https://developers.barocert.com/reference/kakao/java/identity/api#GetIdentityStatus
      */
     @RequestMapping(value = "kakaocert/getIdentityStatus", method = RequestMethod.GET)
@@ -104,8 +104,10 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 본인인증 요청시 반환된 접수아이디를 통해 본인인증 서명을 검증합니다. 
-     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     * 완료된 전자서명을 검증하고 전자서명값(signedData)을 반환 받습니다.
+     * 반환받은 전자서명값(signedData)과 [1. RequestIdentity] 함수 호출에 입력한 Token의 동일 여부를 확인하여 이용자의 본인인증 검증을 완료합니다.
+     * 카카오 보안정책에 따라 검증 API는 1회만 호출할 수 있습니다. 재시도시 오류가 반환됩니다.
+     * 전자서명 완료일시로부터 10분 이후에 검증 API를 호출하면 오류가 반환됩니다.
      * https://developers.barocert.com/reference/kakao/java/identity/api#VerifyIdentity
      */
     @RequestMapping(value = "kakaocert/verifyIdentity", method = RequestMethod.GET)
@@ -126,7 +128,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 카카오톡 사용자에게 전자서명을 요청합니다.(단건)
+     * 카카오톡 이용자에게 단건(1건) 문서의 전자서명을 요청합니다.
      * https://developers.barocert.com/reference/kakao/java/sign/api-single#RequestSign
      */
     @RequestMapping(value = "kakaocert/requestSign", method = RequestMethod.GET)
@@ -171,7 +173,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다. (단건)
+     * 전자서명(단건) 요청 후 반환받은 접수아이디로 인증 진행 상태를 확인합니다.
      * https://developers.barocert.com/reference/kakao/java/sign/api-single#GetSignStatus
      */
     @RequestMapping(value = "kakaocert/getSignStatus", method = RequestMethod.GET)
@@ -192,8 +194,9 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명을 검증합니다. (단건)
-     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     * 완료된 전자서명을 검증하고 전자서명값(signedData)을 반환 받습니다.
+     * 카카오 보안정책에 따라 검증 API는 1회만 호출할 수 있습니다. 재시도시 오류가 반환됩니다.
+     * 전자서명 완료일시로부터 10분 이후에 검증 API를 호출하면 오류가 반환됩니다.
      * https://developers.barocert.com/reference/kakao/java/sign/api-single#VerifySign
      */
     @RequestMapping(value = "kakaocert/verifySign", method = RequestMethod.GET)
@@ -215,7 +218,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 카카오톡 사용자에게 전자서명을 요청합니다.(복수)
+     * 카카오톡 이용자에게 복수(최대 20건) 문서의 전자서명을 요청합니다.
      * https://developers.barocert.com/reference/kakao/java/sign/api-multi#RequestMultiSign
      */
     @RequestMapping(value = "kakaocert/requestMultiSign", method = RequestMethod.GET)
@@ -278,7 +281,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다. (복수)
+     * 전자서명(복수) 요청 후 반환받은 접수아이디로 인증 진행 상태를 확인합니다.
      * https://developers.barocert.com/reference/kakao/java/sign/api-multi#GetMultiSignStatus
      */
     @RequestMapping(value = "kakaocert/getMultiSignStatus", method = RequestMethod.GET)
@@ -300,8 +303,9 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 전자서명 요청시 반환된 접수아이디를 통해 서명을 검증합니다. (복수)
-     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     * 완료된 전자서명을 검증하고 전자서명값(signedData)을 반환 받습니다.
+     * 카카오 보안정책에 따라 검증 API는 1회만 호출할 수 있습니다. 재시도시 오류가 반환됩니다.
+     * 전자서명 완료일시로부터 10분 이후에 검증 API를 호출하면 오류가 반환됩니다.
      * https://developers.barocert.com/reference/kakao/java/sign/api-multi#VerifyMultiSign
      */
     @RequestMapping(value = "kakaocert/verifyMultiSign", method = RequestMethod.GET)
@@ -322,7 +326,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 카카오톡 사용자에게 자동이체 출금동의 전자서명을 요청합니다.
+     * 카카오톡 이용자에게 자동이체 출금동의를 요청합니다.
      * https://developers.barocert.com/reference/kakao/java/cms/api#RequestCMS
      */
     @RequestMapping(value = "kakaocert/requestCMS", method = RequestMethod.GET)
@@ -377,7 +381,7 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 자동이체 출금동의 요청시 반환된 접수아이디를 통해 서명 상태를 확인합니다.
+     * 자동이체 출금동의 요청 후 반환받은 접수아이디로 인증 진행 상태를 확인합니다.
      * https://developers.barocert.com/reference/kakao/java/cms/api#GetCMSStatus
      */
     @RequestMapping(value = "kakaocert/getCMSStatus", method = RequestMethod.GET)
@@ -398,8 +402,9 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 자동이체 출금동의 요청시 반환된 접수아이디를 통해 서명을 검증합니다.
-     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     * 완료된 전자서명을 검증하고 전자서명값(signedData)을 반환 받습니다.
+     * 카카오 보안정책에 따라 검증 API는 1회만 호출할 수 있습니다. 재시도시 오류가 반환됩니다.
+     * 전자서명 완료일시로부터 10분 이후에 검증 API를 호출하면 오류가 반환됩니다.
      * https://developers.barocert.com/reference/kakao/java/cms/api#VerifyCMS
      */
     @RequestMapping(value = "kakaocert/verifyCMS", method = RequestMethod.GET)
@@ -420,8 +425,9 @@ public class KakaocertServiceController {
     }
 
     /*
-     * 간편로그인 토큰받기 요청시 반환된 txID를 통해 서명을 검증합니다.
-     * 검증하기 API는 완료된 전자서명 요청당 1회만 요청 가능하며, 사용자가 서명을 완료후 유효시간(10분)이내에만 요청가능 합니다.
+     * 완료된 전자서명을 검증하고 전자서명 데이터 전문(signedData)을 반환 받습니다.
+     * 카카오 보안정책에 따라 검증 API는 1회만 호출할 수 있습니다. 재시도시 오류가 반환됩니다.
+     * 전자서명 완료일시로부터 10분 이후에 검증 API를 호출하면 오류가 반환됩니다.
      * https://developers.barocert.com/reference/kakao/java/login/api#VerifyLogin
      */
     @RequestMapping(value = "kakaocert/verifyLogin", method = RequestMethod.GET)
