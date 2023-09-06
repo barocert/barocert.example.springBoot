@@ -220,7 +220,7 @@ public class NavercertServiceController {
     }
 
     /*
-     * 네이버 이용자에게 복수(최대 20건) 문서의 전자서명을 요청합니다.
+     * 네이버 이용자에게 복수(최대 50건) 문서의 전자서명을 요청합니다.
      * https://developers.barocert.com/reference/naver/java/sign/api-multi#RequestMultiSign
      */
     @RequestMapping(value = "navercert/requestMultiSign", method = RequestMethod.GET)
