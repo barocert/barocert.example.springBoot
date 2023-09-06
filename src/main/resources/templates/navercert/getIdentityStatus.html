@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen"/>
+    <title>Barocert Navercert Service SpringBoot Example</title>
+</head>
+<body>
+<div id="content">
+    <p class="heading1">Response</p>
+    <br/>
+    <fieldset class="fieldset1">
+        <legend th:text="${#request?.requestURL}"></legend>
+        
+        <fieldset class="fieldset2">
+            <ul>
+                <li>ReceiptID (접수 아이디) : <span th:text="${result.receiptID}"></span></li>
+                <li>ClientCode (이용기관 코드) : <span th:text="${result.clientCode}"></span></li>
+                <li>State (상태코드) : <span th:text="${result.state}"></span></li>
+                <li>ExpireIn (요청 만료시간) : <span th:text="${result.expireIn}"></span></li>
+                <li>CallCenterName (이용기관 명) : <span th:text="${result.callCenterName}"></span></li>
+                <li>CallCenterNum (이용기관 연락처) : <span th:text="${result.callCenterNum}"></span></li>
+                <li>ReturnURL (복귀 URL) : <span th:text="${result.returnURL}"></span></li>
+                <li>ExpireDT (서명만료일시) : <span th:text="${result.expireDT}"></span></li>
+                <li>Scheme (앱스킴) : <span th:text="${result.scheme}"></span></li>
+                <li>DeviceOSType (모바일장비 유형) : <span th:text="${result.deviceOSType}"></span></li>
+                <li>AppUseYN (앱사용유무) : <span th:text="${result.appUseYN}"></span></li>
+            </ul>
+        </fieldset>
+        
+    </fieldset>
+</div>
+</body>
+</html>
