@@ -22,8 +22,6 @@ kakaocert:
   isIpRestrictOnOff: true
   #카카오써트 API 서비스 고정 IP 사용여부, True-사용, False-미사용, 기본값(False)
   useStaticIp: false
-  #로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(True)
-  useLocalTimeYN: true
 
 navercert:
   #링크허브에서 발급받은 파트너 링크아이디.
@@ -36,8 +34,6 @@ navercert:
   isIpRestrictOnOff: true
   #네이버써트 API 서비스 고정 IP 사용여부, True-사용, False-미사용, 기본값(False)
   useStaticIp: false
-  #로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(True)
-  useLocalTimeYN: true
 
 passcert:
   #링크허브에서 발급받은 파트너 링크아이디.
@@ -50,8 +46,6 @@ passcert:
   isIpRestrictOnOff: true
   #카카오써트 API 서비스 고정 IP 사용여부, True-사용, False-미사용, 기본값(False)
   useStaticIp: false
-  #로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(True)
-  useLocalTimeYN: true
   
   
 spring:
