@@ -58,11 +58,11 @@ public class KakaocertServiceController {
         identity.setReceiverBirthday(kakaocertService.encrypt("19700101"));
 
         // 인증요청 메시지 제목 - 최대 40자
-        identity.setReqTitle("인증요청 메시지 제목란");
+        identity.setReqTitle("본인인증 요청 메시지 제목");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         identity.setExpireIn(1000);
         // 서명 원문 - 최대 40자 까지 입력가능
-        identity.setToken(kakaocertService.encrypt("본인인증요청토큰"));
+        identity.setToken(kakaocertService.encrypt("본인인증 요청 원문"));
 
         // AppToApp 인증요청 여부
         // true - AppToApp 인증방식, false - Talk Message 인증방식
@@ -145,11 +145,11 @@ public class KakaocertServiceController {
         sign.setReceiverBirthday(kakaocertService.encrypt("19700101"));
 
         // 인증요청 메시지 제목 - 최대 40자
-        sign.setReqTitle("전자서명단건테스트");
+        sign.setReqTitle("전자서명(단건) 요청 메시지 제목");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         sign.setExpireIn(1000);
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        sign.setToken(kakaocertService.encrypt("전자서명단건테스트데이터"));
+        sign.setToken(kakaocertService.encrypt("전자서명(단건) 요청 원문"));
         // 서명 원문 유형
         // TEXT - 일반 텍스트, HASH - HASH 데이터
         sign.setTokenType("TEXT");
@@ -237,7 +237,7 @@ public class KakaocertServiceController {
         // multiSign.setCi(kakaocertService.encrypt(""));
 
         // 인증요청 메시지 제목 - 최대 40자
-        multiSign.setReqTitle("전자서명복수테스트");
+        multiSign.setReqTitle("전자서명(복수) 요청 메시지 제목");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         multiSign.setExpireIn(1000);
 
@@ -245,17 +245,17 @@ public class KakaocertServiceController {
         // 개별 요청 정보 객체
         MultiSignTokens token = new MultiSignTokens();
         // 인증요청 메시지 제목 - 최대 40자
-        token.setReqTitle("전자서명복수문서테스트1");
+        token.setReqTitle("전자서명(복수) 요청 메시지 제목 1");
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        token.setToken(kakaocertService.encrypt("전자서명복수테스트데이터1"));
+        token.setToken(kakaocertService.encrypt("전자서명(복수) 요청 원문 1"));
         multiSign.addToken(token);
 
         // 개별 요청 정보 객체
         MultiSignTokens token2 = new MultiSignTokens();
         // 인증요청 메시지 제목 - 최대 40자
-        token2.setReqTitle("전자서명복수문서테스트2");
+        token2.setReqTitle("전자서명(복수) 요청 메시지 제목 2");
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        token2.setToken(kakaocertService.encrypt("전자서명복수테스트데이터2"));
+        token2.setToken(kakaocertService.encrypt("전자서명(복수) 요청 원문 2"));
         multiSign.addToken(token2);
 
         // 서명 원문 유형
@@ -343,7 +343,7 @@ public class KakaocertServiceController {
         cms.setReceiverBirthday(kakaocertService.encrypt("19700101"));
 
         // 인증요청 메시지 제목 - 최대 40자
-        cms.setReqTitle("인증요청 메시지 제공란");
+        cms.setReqTitle("출금동의 요청 메시지 제목");
 
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         cms.setExpireIn(1000);

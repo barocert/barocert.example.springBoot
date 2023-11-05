@@ -140,15 +140,15 @@ public class NavercertServiceController {
         sign.setReceiverBirthday(navercertService.encrypt("19700101"));
 
         // 인증요청 메시지 제목 - 최대 40자
-        sign.setReqTitle("전자서명단건테스트");
+        sign.setReqTitle("전자서명(단건) 요청 메시지 제목");
         // 고객센터 연락처 - 최대 12자
         sign.setCallCenterNum("1600-9854");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         sign.setExpireIn(1000);
         // 인증요청 메시지 - 최대 500자
-        sign.setReqMessage(navercertService.encrypt("전자서명 인증요청 메시지"));
+        sign.setReqMessage(navercertService.encrypt("전자서명(단건) 요청 메시지"));
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        sign.setToken(navercertService.encrypt("전자서명 단건 테스트 데이터"));
+        sign.setToken(navercertService.encrypt("전자서명(단건) 요청 원문"));
         // 서명 원문 유형
         // TEXT - 일반 텍스트, HASH - HASH 데이터
         sign.setTokenType("TEXT");
@@ -237,19 +237,19 @@ public class NavercertServiceController {
         multiSign.setReceiverBirthday(navercertService.encrypt("19700101"));
 
         // 인증요청 메시지 제목 - 최대 40자
-        multiSign.setReqTitle("전자서명복수테스트");
+        multiSign.setReqTitle("전자서명(복수) 요청 메시지 제목");
         // 고객센터 연락처 - 최대 12자
         multiSign.setCallCenterNum("1600-9854");
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력
         multiSign.setExpireIn(1000);
         // 인증요청 메시지 - 최대 500자
-        multiSign.setReqMessage(navercertService.encrypt("전자서명 인증요청 메시지"));
+        multiSign.setReqMessage(navercertService.encrypt("전자서명(복수) 요청 메시지"));
 
         // 개별문서 등록 - 최대 50 건
         // 개별 요청 정보 객체
         MultiSignTokens token = new MultiSignTokens();
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        token.setToken(navercertService.encrypt("전자서명복수테스트데이터1"));
+        token.setToken(navercertService.encrypt("전자서명(복수) 요청 원문 1"));
         // 서명 원문 유형
         // 'TEXT' - 일반 텍스트, 'HASH' - HASH 데이터
         token.setTokenType("TEXT");
@@ -259,7 +259,7 @@ public class NavercertServiceController {
         // 개별 요청 정보 객체
         MultiSignTokens token2 = new MultiSignTokens();
         // 서명 원문 - 원문 2,800자 까지 입력가능
-        token2.setToken(navercertService.encrypt("전자서명복수테스트데이터2"));
+        token2.setToken(navercertService.encrypt("전자서명(복수) 요청 원문 2"));
         // 서명 원문 유형
         // 'TEXT' - 일반 텍스트, 'HASH' - HASH 데이터
         token2.setTokenType("TEXT");
