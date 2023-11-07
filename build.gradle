@@ -15,7 +15,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'kr.co.linkhub:barocert-spring-boot-starter:1.2.3'
+	implementation 'kr.co.linkhub:barocert-spring-boot-starter:1.2.4'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
