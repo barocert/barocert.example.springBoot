@@ -59,8 +59,8 @@ public class KakaocertServiceController {
 
         // 인증요청 메시지 제목 - 최대 40자
         identity.setReqTitle("본인인증 요청 메시지 제목");
-        // 상세 설명 - 최대 500자
-        identity.setExtraMessage(kakaocertService.encrypt("본인인증 상세 설명"));
+        // 커스텀 메시지 - 최대 500자
+        identity.setExtraMessage(kakaocertService.encrypt("본인인증 커스텀 메시지"));
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         identity.setExpireIn(1000);
         // 서명 원문 - 최대 40자 까지 입력가능
@@ -148,8 +148,8 @@ public class KakaocertServiceController {
 
         // 서명 요청 제목 - 최대 40자
         sign.setSignTitle("전자서명(단건) 서명 요청 제목");
-        // 상세 설명 - 최대 500자
-        sign.setExtraMessage(kakaocertService.encrypt("전자서명(단건) 상세 설명"));
+        // 커스텀 메시지 - 최대 500자
+        sign.setExtraMessage(kakaocertService.encrypt("전자서명(단건) 커스텀 메시지"));
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         sign.setExpireIn(1000);
         // 서명 원문 - 원문 2,800자 까지 입력가능
@@ -241,8 +241,8 @@ public class KakaocertServiceController {
 
         // 인증요청 메시지 제목 - 최대 40자
         multiSign.setReqTitle("전자서명(복수) 요청 메시지 제목");
-        // 상세 설명 - 최대 500자
-        multiSign.setExtraMessage(kakaocertService.encrypt("전자서명(복수) 상세 설명"));
+        // 커스텀 메시지 - 최대 500자
+        multiSign.setExtraMessage(kakaocertService.encrypt("전자서명(복수) 커스텀 메시지"));
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         multiSign.setExpireIn(1000);
 
@@ -349,8 +349,8 @@ public class KakaocertServiceController {
 
         // 인증요청 메시지 제목 - 최대 40자
         cms.setReqTitle("출금동의 요청 메시지 제목");
-        // 상세 설명 - 최대 500자
-        cms.setExtraMessage(kakaocertService.encrypt("출금동의 상세 설명"));
+        // 커스텀 메시지 - 최대 500자
+        cms.setExtraMessage(kakaocertService.encrypt("출금동의 커스텀 메시지"));
 
         // 인증요청 만료시간 - 최대 1,000(초)까지 입력 가능
         cms.setExpireIn(1000);
