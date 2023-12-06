@@ -22,6 +22,10 @@ import com.barocert.navercert.sign.Sign;
 import com.barocert.navercert.sign.SignReceipt;
 import com.barocert.navercert.sign.SignResult;
 import com.barocert.navercert.sign.SignStatus;
+import com.barocert.navercert.cms.CMS;
+import com.barocert.navercert.cms.CMSReceipt;
+import com.barocert.navercert.cms.CMSResult;
+import com.barocert.navercert.cms.CMSStatus;
 
 @Controller
 public class NavercertServiceController {
@@ -286,8 +290,8 @@ public class NavercertServiceController {
         try {
             MultiSignReceipt result = navercertService.requestMultiSign(ClientCode, multiSign);
             m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
+        } catch (BarocertException ne) {
+            m.addAttribute("Exception", ne);
             return "exception";
         }
 
@@ -308,8 +312,8 @@ public class NavercertServiceController {
             MultiSignStatus result = navercertService.getMultiSignStatus(ClientCode, receiptID);
             m.addAttribute("result", result);
 
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
+        } catch (BarocertException ne) {
+            m.addAttribute("Exception", ne);
             return "exception";
         }
 
@@ -330,8 +334,8 @@ public class NavercertServiceController {
         try {
             MultiSignResult result = navercertService.verifyMultiSign(ClientCode, receiptID);
             m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
+        } catch (BarocertException ne) {
+            m.addAttribute("Exception", ne);
             return "exception";
         }
 
@@ -388,14 +392,14 @@ public class NavercertServiceController {
         // cms.setReturnURL("navercert://cms");
 
         try {
-            CMSReceipt result = navercertService.requestIdentity(ClientCode, cms);
+            CMSReceipt result = navercertService.requestCMS(ClientCode, cms);
             m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
+        } catch (BarocertException ne) {
+            m.addAttribute("Exception", ne);
             return "exception";
         }
 
-        return "navercert/requestIdentity";
+        return "navercert/requestCMS";
     }
 
     /*
@@ -406,13 +410,13 @@ public class NavercertServiceController {
     public String getCMSStatus(Model m) {
 
         // 출금동의 요청시 반환된 접수아이디
-        String receiptID = "02309060230600000880000000000001";
+        String receiptID = "02312060230900000210000000000018";
 
         try {
             CMSStatus result = navercertService.getCMSStatus(ClientCode, receiptID);
             m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
+        } catch (BarocertException ne) {
+            m.addAttribute("Exception", ne);
             return "exception";
         }
 
@@ -429,17 +433,17 @@ public class NavercertServiceController {
     public String verifyCMS(Model m) {
 
         // 출금동의 요청시 반환된 접수아이디
-        String receiptID = "02309060230600000880000000000001";
+        String receiptID = "02312060230900000210000000000018";
 
         try {
             CMSResult result = navercertService.verifyCMS(ClientCode, receiptID);
             m.addAttribute("result", result);
-        } catch (BarocertException ke) {
-            m.addAttribute("Exception", ke);
+        } catch (BarocertException ne) {
+            m.addAttribute("Exception", ne);
             return "exception";
         }
 
-        return "navercert/verifyIdentity";
+        return "navercert/verifyCMS";
     }
 
 }
