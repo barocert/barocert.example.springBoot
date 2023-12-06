@@ -65,6 +65,7 @@ public class NavercertServiceController {
         // identity.setDeviceOSType("ANDROID");
 
         // App to App 방식 이용시, 호출할 URL
+        // "http", "https"등의 웹프로토콜 사용 불가
         // identity.setReturnURL("navercert://Identity");
 
         try {
