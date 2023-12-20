@@ -61,7 +61,7 @@ public class NavercertServiceController {
         identity.setExpireIn(1000);
 
         // AppToApp 인증요청 여부
-        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        // true - AppToApp 인증방식, false - 푸시(Push) 인증방식
         identity.setAppUseYN(false);
 
         // ApptoApp 인증방식에서 사용
@@ -163,7 +163,7 @@ public class NavercertServiceController {
         // sign.setToken(navercertService.encrypt(navercertService.sha256_base64url("전자서명(단건) 요청 원문")));
 
         // AppToApp 인증요청 여부
-        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        // true - AppToApp 인증방식, false - 푸시(Push) 인증방식
         sign.setAppUseYN(false);
 
         // ApptoApp 인증방식에서 사용
@@ -285,7 +285,7 @@ public class NavercertServiceController {
         multiSign.addToken(token2);
 
         // AppToApp 인증요청 여부
-        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        // true - AppToApp 인증방식, false - 푸시(Push) 인증방식
         multiSign.setAppUseYN(false);
 
         // ApptoApp 인증방식에서 사용
@@ -389,7 +389,7 @@ public class NavercertServiceController {
         cms.setBankAccountBirthday(navercertService.encrypt("19700101"));
 
         // AppToApp 인증요청 여부
-        // true - AppToApp 인증방식, false - Talk Message 인증방식
+        // true - AppToApp 인증방식, false - 푸시(Push) 인증방식
         cms.setAppUseYN(false);
 
         // AppToApp 인증방식에서 사용
