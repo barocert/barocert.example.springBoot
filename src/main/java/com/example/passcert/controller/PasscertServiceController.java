@@ -414,7 +414,7 @@ public class PasscertServiceController {
         login.setToken(passcertService.encrypt("간편로그인 요청 원문"));
 
         // 사용자 동의 필요 여부
-        login.setUserAgreementYN(false);
+        login.setUserAgreementYN(true);
         // 사용자 정보 포함 여부
         login.setReceiverInfoYN(true);
         // AppToApp 인증요청 여부
