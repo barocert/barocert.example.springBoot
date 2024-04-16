@@ -2,11 +2,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen"/>
-    <title>Barocert Kakaocert Service SpringBoot Example</title>
+    <title>Barocert SpringBoot Example</title>
 </head>
 <body>
 <div id="content">
-    <p class="heading1">Response</p>
+    <p class="heading1">카카오 전자서명(복수) 검증 API SpringBoot Example</p>
     <br/>
     <fieldset class="fieldset1">
         <legend th:text="${#request?.requestURL}"></legend>
@@ -17,6 +17,10 @@
             	<li>MultiSignedData (전자서명 데이터 전문) : <span th:text="${multiSignedData}"></span></li>
             </th:block>
             <li>Ci (연계정보) : <span th:text="${result.ci}"></span></li>
+            <li>ReceiverName (수신자 성명) : <span th:text="${result.receiverName}"></span></li>
+            <li>ReceiverYear (수신자 출생년도) : <span th:text="${result.receiverYear}"></span></li>
+            <li>ReceiverDay (수신자 출생월일) : <span th:text="${result.receiverDay}"></span></li>
+            <li>ReceiverHP (수신자 휴대폰번호) : <span th:text="${result.receiverHP}"></span></li>
         </ul>
     </fieldset>
 </div>
